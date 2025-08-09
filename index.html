@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Zyobix</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+<style>
+@keyframes slide {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.animate-slide {
+  animation: slide 20s linear infinite;
+}
+</style>
+  <link rel="shortcut icon" href="fav-icon.jpg" type="image/x-icon">
+  
+</head>
+<body>
+  
+
+  <header id="main-header">
+    <div class="logo">Zyobix</div>
+    
+    <input type="checkbox" id="menu-toggle">
+    <label for="menu-toggle" class="hamburger">
+      <span></span>
+      <span></span>
+      <span></span>
+    </label>
+
+    <nav class="menu">
+      <ul>
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#project">Portfolio</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  
+<section class="hero-section" id="home">
+  <!-- Background Video -->
+  <video autoplay muted loop playsinline class="bg-video">
+    <!-- Replace the src below with your actual video link -->
+    <source src="./assets/home/heroVid-cuWC63So.mp4" type="video/mp4" />
+    
+  </video>
+
+  
+  <div class="hero-content">
+    <h1 class="heading-primary">Innovate Transform</h1>
+    <h2 class="heading-secondary neon-glow-orange">Succeed</h2>
+    <p class="hero-tagline">
+      Empowering businesses with cutting-edge IT solutions that drive<br />
+      growth and innovation.
+    </p>
+  </div>
+</section>
+
+  
+  <section class="content" id="about">
+    <div class="division2">
+<div class="img-content">
+  <!--<video autoplay muted loop playsinline>
+   
+    <source src="./assets/hero-section-Bz784kpR.mp4" type="video/mp4" />
+    
+  </video>-->
+  <img src="./assets/about/hero-section-Bz784kpR-unscreen.gif" alt="About Zyobix">
+</div>
+<div class="absolute -bottom-6 -right-6 w-48 h-48 bg-primary/20 rounded-full blur-3xl"></div>
+<div class="txt-content">
+  <h1 class="font-bold text-4xl">About <span class="gradient">Zyobix</span></h1>
+  <p>At Zyobix, we're more than just an IT company – we're your partner in digital transformation. With years of experience and a passion for innovation, we help businesses navigate the ever-evolving technological landscape.</p>
+  <p>Our mission is to deliver cutting-edge solutions that drive growth, enhance efficiency, and create lasting value for our clients. We combine technical expertise with creative thinking to solve complex challenges and unlock new opportunities.</p>
+  <button class="btn-gradient">Learn More</button>
+</div>
+    </div>
+  </section>
+  <section class="content1" id="services">
+    <h1 class="font-bold text-4xl">Our <span class="gradient">Services</span></h1>
+    <p>We offer a comprehensive range of IT solutions to help your business thrive in the digital age.</p>
+    <div class="services-card">
+
+      <div class="card">
+        <img src="./assets/services/uiUx-C9oaiHwr.gif" alt="UI/UX">
+        <span>UI/UX Design</span>
+        <p>Create intuitive and engaging user experiences that drive conversion and satisfaction.</p>
+        <a href="#">Learn More →</a>
+      </div>
+
+      <div class="card">
+        <img src="./assets/services/webDev-BOPHa_Lq.gif" alt="web-dev">
+        <span>Web Development</span>
+        <p>Build modern, responsive websites and web applications using cutting-edge technologies.</p>
+        <a href="#">Learn More →</a>
+      </div>
+
+      <div class="card">
+        <img src="./assets/services/marketing-Ceh_oUdo.gif" alt="marketing">
+        <span>Digital Marketing</span>
+        <p>Boost your online presence and reach the right audience with data-driven marketing strategies.</p>
+        <a href="#">Learn More →</a>
+      </div>
+
+      <div class="card">
+        <img src="./assets/services/management-CdEY2A6A.gif" alt="managemet">
+        <span>Social Media Management</span>
+        <p>Enhance your brand’s social presence and engage with your audience effectively.</p>
+        <a href="#">Learn More →</a>
+      </div>
+
+    </div>
+  </section>
+  <section class="section-padding">
+    <div class="padd-no">
+      <span><div class="gradient">77+</div></span>
+      <p>Projects Completed</p>
+    </div>
+     <div class="padd-no">
+      <span><div class="gradient">99%</div></span>
+      <p>Client Satisfaction</p>
+    </div>
+     <div class="padd-no">
+      <span><div class="gradient">3+</div></span>
+      <p>Years Experience</p>
+    </div>
+     <div class="padd-no">
+      <span><div class="gradient">6+</div></span>
+      <p>Team Members</p>
+    </div>
+  </section>
+  <section class="content1" id="project">
+    <h1 class="font-bold text-4xl">Our <span class="gradient">Projects</span></h1>
+    <p>Explore our portfolio of successful projects delivered with excellence.</p>
+
+    <div class="grid md:grid-cols-2 xl:grid-cols-3 gap-4 glass-effect p-6 rounded-xl">
+  <a href="https://mallofemirates.store/" target="_blank" class="block w-[370px] md:w-[470px] lg:w-[370px]">
+    <div class="bg-dark-light/30 backdrop-blur-sm rounded-xl overflow-hidden hover:bg-dark-light/50 transition-all duration-300 bg-color-dark1 bg-color-dark1:hover">
+      <div class="relative h-48">
+        <img src="./assets/mallOfEmirates-PCAXXOl5.png" alt="E-Commerce Platform" class="w-full h-full object-cover">
+        <div class="absolute inset-0 bg-gradient-to-t from-dark to-transparent"></div>
+        <span class="absolute bottom-4 left-4 text-sm text-white text-4xl bg-orange-400/30 px-3 py-1 rounded-full">Web Development</span>
+      </div>
+      <div class="p-6">
+        <h3 class="text-xl font-bold mb-2 text-white text-4xl">E-Commerce Platform</h3>
+        <p class="text-gray-400 mb-4">A complete online store for Mall of Emirates, offering a wide range of products with a seamless shopping experience and secure checkout.</p>
+      </div>
+    </div>
+  </a>
+
+  <a href="https://zenmato.com/" target="_blank" class="block w-[370px] md:w-[470px] lg:w-[370px]">
+    <div class="bg-dark-light/30 backdrop-blur-sm rounded-xl overflow-hidden hover:bg-dark-light/50 transition-all duration-300 bg-color-dark1 bg-color-dark1:hover">
+      <div class="relative h-48">
+        <img src="./assets/zenmato-D-yI7dv2.png" alt="Custom Hoodie Store" class="w-full h-full object-cover">
+        <div class="absolute inset-0 bg-gradient-to-t from-dark to-transparent"></div>
+        <span class="absolute bottom-4 left-4 text-sm text-white text-4xl bg-orange-400/30 px-3 py-1 rounded-full">Web Application</span>
+      </div>
+      <div class="p-6">
+        <h3 class="text-xl font-bold mb-2 text-white text-4xl">Custom Hoodie Store</h3>
+        <p class="text-gray-400 mb-4">An eCommerce website specializing in selling custom-designed hoodies, featuring an interactive design tool and secure payment integration.</p>
+      </div>
+    </div>
+  </a>
+
+  <a target="_blank" class="block w-[370px] md:w-[470px] lg:w-[370px]">
+    <div class="bg-dark-light/30 backdrop-blur-sm rounded-xl overflow-hidden hover:bg-dark-light/50 transition-all duration-300 bg-color-dark1 bg-color-dark1:hover">
+      <div class="relative h-48">
+        <img src="./assets/designersLeather-BHccTRkg.png" alt="Designers Leather" class="w-full h-full object-cover">
+        <div class="absolute inset-0 bg-gradient-to-t from-dark to-transparent"></div>
+        <span class="absolute bottom-4 left-4 text-sm text-white text-4xl bg-orange-400/30 px-3 py-1 rounded-full">Brand Development</span>
+      </div>
+      <div class="p-6">
+        <h3 class="text-xl font-bold mb-2 text-white text-4xl">Designers Leather</h3>
+        <p class="text-gray-400 mb-4">A premium online brand identity for Designers Leather, showcasing high-quality leather products with a stylish and luxurious design approach.</p>
+      </div>
+    </div>
+  </a>
+
+  <a href="https://clickysolution.com/" target="_blank" class="block w-[370px] md:w-[470px] lg:w-[370px]">
+    <div class="bg-dark-light/30 backdrop-blur-sm rounded-xl overflow-hidden hover:bg-dark-light/50 transition-all duration-300 bg-color-dark1 bg-color-dark1:hover">
+      <div class="relative h-48">
+        <img src="./assets/clickySol-f_Eeo6r5.png" alt="Clicky Solution" class="w-full h-full object-cover">
+        <div class="absolute inset-0 bg-gradient-to-t from-dark to-transparent"></div>
+        <span class="absolute bottom-4 left-4 text-sm text-white text-4xl bg-orange-400/30 px-3 py-1 rounded-full">Portfolio Website</span>
+      </div>
+      <div class="p-6">
+        <h3 class="text-xl font-bold mb-2 text-white text-4xl">Clicky Solution</h3>
+        <p class="text-gray-400 mb-4">A sleek and professional portfolio website showcasing software solutions, company projects, and client testimonials.</p>
+      </div>
+    </div>
+  </a>
+
+  <a href="https://zeemalglam.com/" target="_blank" class="block w-[370px] md:w-[470px] lg:w-[370px]">
+    <div class="bg-dark-light/30 backdrop-blur-sm rounded-xl overflow-hidden hover:bg-dark-light/50 transition-all duration-300 bg-color-dark1 bg-color-dark1:hover">
+      <div class="relative h-48">
+        <img src="./assets/zenmalgum-DrUpeKbL.png" alt="Ladies Fashion Store" class="w-full h-full object-cover">
+        <div class="absolute inset-0 bg-gradient-to-t from-dark to-transparent"></div>
+        <span class="absolute bottom-4 left-4 text-sm text-white text-4xl bg-orange-400/30 px-3 py-1 rounded-full">E-Commerce Store</span>
+      </div>
+      <div class="p-6">
+        <h3 class="text-xl font-bold mb-2 text-white text-4xl">Ladies Fashion Store</h3>
+        <p class="color-grey-400 mb-4">An elegant eCommerce platform for selling trendy ladies’ dresses, with a user-friendly interface, filtering options, and fast checkout.</p>
+      </div>
+    </div>
+  </a>
+</div>
+
+</div>
+  </section>
+  <section class="content1" style="background: linear-gradient(120deg, rgba(49, 33, 33, 0.95) 0%, rgb(24, 21, 21) 25%, rgb(66, 46, 39) 50%, rgb(46, 32, 36) 75%, rgba(13, 11, 11, 0.9) 100%);">
+<h1 class="text-5sl">Ready to <span class="gradient">Your Business?</span></h1>
+<p>Let's discuss how we can help you achieve your digital transformation goals.</p>
+<button class="btn-gradient1">Schedule a Consultation</button>
+  </section>
+  <section class="content1">
+    <h1 class="font-bold text-4xl">Client <span class="gradient">Testimonials</span></h1>
+    <p>Don't just take our word for it – hear what our clients have to say about working with Zyobix.</p>
+    
+  <div class="overflow-hidden relative w-full py-8">
+  <!-- Slider container -->
+  <div class="flex gap-4 animate-slide hover:[animation-play-state:paused]">
+
+    <!-- Tumhare cards -->
+    <div class="w-[350px] h-auto p-5 rounded-lg shadow-lg bg-color-dark1 card0 flex-shrink-0">
+      <div class="flex">
+        <div class="img-content-avater">
+          <img src="./assets/avater1.jpg" alt="User Avatar" class="w-12 h-12 rounded-full">
+        </div>
+        <div class="block">
+          <h5 class="text-base color-white-0 font-bold ml-2">Sarah Johnson</h5>
+          <p class="ml-2">Owner Sarah's Cookies</p>
+        </div>
+      </div>
+      <div class="block">
+        <div class="flex mb-4">
+          <span class="text-yellow-500">★</span>
+          <span class="text-yellow-500">★</span>
+          <span class="text-yellow-500">★</span>
+          <span class="text-yellow-500">★</span>
+          <span class="text-yellow-500">★</span>
+        </div>
+        <p class="text-gray-300 italic">Zyobix boosted our online sales and grew our brand with expert social media management.</p>
+      </div>
+    </div>
+
+    <div class="w-[350px] h-auto p-5 rounded-lg shadow-lg bg-color-dark1 card0 flex-shrink-0">
+      <div class="flex">
+        <div class="img-content-avater">
+          <img src="./assets/avater2.jpg" alt="User Avatar" class="w-12 h-12 rounded-full">
+        </div>
+        <div class="block">
+          <h5 class="text-base color-white-0 font-bold ml-2">M Haider</h5>
+          <p class="ml-2">CEO ,Clicky Solution</p>
+        </div>
+      </div>
+      <div class="block">
+        <div class="flex mb-4">
+          <span class="text-yellow-500">★</span>
+          <span class="text-yellow-500">★</span>
+          <span class="text-yellow-500">★</span>
+          <span class="text-yellow-500">★</span>
+          <span class="text-yellow-500">★</span>
+        </div>
+        <p class="text-gray-300 italic">Zyobix built us a stunning portfolio website and provided top-notch support throughout which helped in our business representation.</p>
+      </div>
+    </div>
+
+    <div class="w-[350px] h-auto p-5 rounded-lg shadow-lg bg-color-dark1 card0 flex-shrink-0">
+      <div class="flex">
+        <div class="img-content-avater">
+          <img src="./assets/avater3.jpg" alt="User Avatar" class="w-12 h-12 rounded-full">
+        </div>
+        <div class="block">
+          <h5 class="text-base color-white-0 font-bold ml-2">Micheal Brown</h5>
+          <p class="ml-2">Director of Future Tech</p>
+        </div>
+      </div>
+      <div class="block">
+        <div class="flex mb-4">
+          <span class="text-yellow-500">★</span>
+          <span class="text-yellow-500">★</span>
+          <span class="text-yellow-500">★</span>
+          <span class="text-yellow-500">★</span>
+          <span class="text-yellow-500">★</span>
+        </div>
+        <p class="text-gray-300 italic">Zyobix’s creative posts and ad campaigns boosted our engagement and conversions effortlessly.</p>
+      </div>
+    </div>
+
+    <div class="w-[350px] h-auto p-5 rounded-lg shadow-lg bg-color-dark1 card0 flex-shrink-0">
+      <div class="flex">
+        <div class="img-content-avater">
+          <img src="./assets/avater4.jpg" alt="User Avatar" class="w-12 h-12 rounded-full">
+        </div>
+        <div class="block">
+          <h5 class="text-base color-white-0 font-bold ml-2">John Smith</h5>
+          <p class="ml-2">Founder, Smith's Retails</p>
+        </div>
+      </div>
+      <div class="block">
+        <div class="flex mb-4">
+          <span class="text-yellow-500">★</span>
+          <span class="text-yellow-500">★</span>
+          <span class="text-yellow-500">★</span>
+          <span class="text-yellow-500">★</span>
+          <span class="text-yellow-500">★</span>
+        </div>
+        <p class="text-gray-300 italic">Zyobix helped us take our local business online with a seamless eCommerce solution. Their expertise in web development and digital strategy boosted our sales and expanded our reach beyond expectations.</p>
+      </div>
+    </div>
+
+    <!-- Duplicate cards for seamless loop -->
+    <div class="w-[350px] h-auto p-5 rounded-lg shadow-lg bg-color-dark1 card0 flex-shrink-0">
+      <div class="flex">
+        <div class="img-content-avater">
+          <img src="./assets/avater1.jpg" alt="User Avatar" class="w-12 h-12 rounded-full">
+        </div>
+        <div class="block">
+          <h5 class="text-base color-white-0 font-bold ml-2">Sarah Johnson</h5>
+          <p class="ml-2">Owner Sarah's Cookies</p>
+        </div>
+      </div>
+      <div class="block">
+        <div class="flex mb-4">
+          <span class="text-yellow-500">★</span>
+          <span class="text-yellow-500">★</span>
+          <span class="text-yellow-500">★</span>
+          <span class="text-yellow-500">★</span>
+          <span class="text-yellow-500">★</span>
+        </div>
+        <p class="text-gray-300 italic">Zyobix boosted our online sales and grew our brand with expert social media management.</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+   
+     
+       
+        
+
+  </section>
+<section class="content1 color-till min-h-screen p-10">
+  <h1 class="font-bold text-4xl">Get in <span class="gradient">Touch</span></h1>
+  <p>Ready to start your project? Contact us for a free consultation.</p>
+
+ <form class="bg-form-bg p-6 md:p-8 lg:p-10 rounded-lg w-full md:w-11/12 md:max-w-2xl lg:w-3/4 lg:max-w-3xl lg:min-w-[600px]">
+    <!-- Name & Email -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div>
+        <label for="name" class="block text-sm font-medium text-gray-300 mb-2">Name</label>
+        <input type="text" id="name" name="user_name"
+               class="w-full bg-input-bg rounded-md px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-pink-400"
+               required>
+      </div>
+
+      <div>
+        <label for="email" class="block text-sm font-medium text-gray-300 mb-2">Email</label>
+        <input type="email" id="email" name="user_email"
+               class="w-full bg-input-bg rounded-md px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-pink-400"
+               required>
+      </div>
+    </div>
+
+    <!-- Service -->
+    <div class="mt-6">
+      <label for="service" class="block text-sm font-medium text-gray-300 mb-2">Select Service</label>
+      <select id="service" name="service_dropdown"
+              class="w-full bg-input-bg rounded-md px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-pink-400">
+        <option value="" disabled selected>Select Service</option>
+        <option value="webDevelopment">Web Development</option>
+        <option value="UiUx">UI / UX</option>
+        <option value="digitalMarketing">Digital Marketing</option>
+        <option value="socialMediaManagement">Social Media Management</option>
+      </select>
+    </div>
+
+    <!-- Message -->
+    <div class="mt-6">
+      <label for="message" class="block text-sm font-medium text-gray-300 mb-2">Message</label>
+      <textarea id="message" name="user_message" rows="4"
+                class="w-full bg-input-bg rounded-md px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-pink-400"
+                required></textarea>
+    </div>
+
+    <!-- Submit -->
+    <div class="mt-8">
+      <button type="submit"
+              class="w-full text-white font-medium py-2 rounded-md bg-button-gradient hover:opacity-90 transition">
+        Submit
+      </button>
+    </div>
+  </form>
+
+
+  
+</section>
+
+<section class="bg-gradient-to-b from-dark to-dark-light py-12">
+  <div class="container mx-auto px-4">
+    
+    <!-- Footer Main Grid -->
+    <div class="grid md:grid-cols-4 gap-8">
+      
+      <!-- Brand Info -->
+      <div>
+        <h3 class="text-xl font-bold mb-4"><span class="gradient">Zyobix</span></h3>
+        <p class="text-gray-400">
+          Empowering businesses with innovative IT solutions.
+        </p>
+      </div>
+
+      <!-- Services -->
+      <div>
+        <h4 class="text-lg font-semibold mb-4"><span class="kill-white">Services</span></h4>
+        <ul class="space-y-2 text-gray-400">
+          <li>UI/UX Design</li>
+          <li>Web Development</li>
+          <li>Mobile Apps</li>
+          <li>Cloud Solutions</li>
+        </ul>
+      </div>
+
+      <!-- Company Links -->
+      <div>
+        <h4 class="text-lg font-semibold mb-4"><span class="kill-white">Company</span></h4>
+        <ul class="space-y-2 text-gray-400 flex flex-col">
+          <li>
+            <a href="#about" class="hover:text-orange-500
+ transition-colors">
+              About Us
+            </a>
+          </li>
+          <li>
+            <a href="#services" class="hover:text-orange-500
+ transition-colors">
+              Services
+            </a>
+          </li>
+          <li>
+            <a href="#projects" class="hover:text-orange-500
+ transition-colors">
+              Projects
+            </a>
+          </li>
+          <li>
+            <a href="#contact" class="hover:text-orange-500
+ transition-colors">
+              Contact
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Social Links -->
+      <div>
+        <h4 class="text-lg font-semibold mb-4"><span class="kill-white">Connect</span></h4>
+        <ul class="space-y-2 text-gray-400 flex flex-col">
+          <li>
+            <a target="_blank" href="https://www.linkedin.com/company/zyobix/" class="hover:text-orange-500
+ transition-colors">
+              LinkedIn
+            </a>
+          </li>
+          <li>
+            <a target="_blank" href="https://www.facebook.com/zyobix/" class="hover:text-orange-500
+ transition-colors">
+              Facebook
+            </a>
+          </li>
+          <li>
+            <a target="_blank" href="https://www.instagram.com/zyobix/" class="hover:text-orange-500
+ transition-colors">
+              Instagram
+            </a>
+          </li>
+        </ul>
+      </div>
+
+    </div>
+
+    <!-- Footer Bottom -->
+    <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
+      <p>© 2025 Zyobix. All rights reserved.</p>
+    </div>
+
+  </div>
+</section>
+<!-- Fixed Image Button (Bottom Right) -->
+<a href="https://wa.me/1234567890" target="_blank"
+   class="fixed bottom-4 right-4 md:bottom-10 md:right-10 z-50">
+  <img src="./assets/whatsapp.gif" 
+       alt="WhatsApp" 
+       class="w-14 h-14 md:w-20 md:h-20 rounded-full shadow-lg hover:scale-110 transition-transform duration-300" />
+</a>
+
+
+  <!-- 1-line JS to handle scroll effect -->
+  <script>window.onscroll=()=>{document.getElementById("main-header").classList.toggle("scrolled",window.scrollY>window.innerHeight-400);}</script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'form-bg': '#2f2f2f',   // Dark gray form background
+            'input-bg': '#3d3d3d',  // Input field background
+          },
+          backgroundImage: {
+            'button-gradient': 'linear-gradient(to right, orange, rgb(255, 44, 79))',
+          }
+        }
+      }
+    }
+  </script>
+
+</body>
+</html>
