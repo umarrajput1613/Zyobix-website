@@ -410,7 +410,13 @@ transition-duration: 150ms; /* default */
   transition: background 0.3s ease;
   font-family: system-ui, sans-serif;
 }
-
+/*section six*/
+.wrap-op {
+  width: 350;
+}
+.wrap-op .wrap-op-card {
+  widht: 100%;
+}
 
 .card-section-comment {
   display: flex;
