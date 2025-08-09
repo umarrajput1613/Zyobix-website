@@ -3,13 +3,8 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
 
-}
-html {
-    overflow-x: hidden;
-  
-  
-}
 /* Body */
 body {
   font-family: sans-serif;
@@ -21,8 +16,7 @@ body {
   padding-left: 1px;
   padding-right: 1px;
   overflow-x: hidden;
-  width: 100vh;
-  max-width: 100%;
+
 }
 
 
@@ -35,7 +29,7 @@ header {
   width: 100%;
   padding: 15px 20px;
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
   background: transparent;
   transition: background 0.3s ease;
@@ -410,13 +404,7 @@ transition-duration: 150ms; /* default */
   transition: background 0.3s ease;
   font-family: system-ui, sans-serif;
 }
-/*section six*/
-.wrap-op {
-  width: 300;
-}
-.wrap-op .wrap-op-card {
-  widht: 100%;
-}
+
 
 .card-section-comment {
   display: flex;
