@@ -9,21 +9,18 @@
 body {
   font-family: sans-serif;
   background: rgba(46, 46, 46, 1);
-  overflow-x: hidden; /* sirf horizontal scroll roke */
-  min-height: 100vh; /* body kam se kam viewport jitni ho */
-  min-width: 100vw;
+  overflow-x: hidden;
+  /*width: 100vw;    full viewport width */
+  /*height: 100vh;   full viewport height */
 }
 
 /* Wrapper */
 .body-wrapper {
-  position: absolute; /* position se body ke andar chipka denge */
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-
-  width: 100%;
-  min-height: 100%; /* content chhota ho to bhi fit rahe */
+      /* max width */
+  width: 100%;          /* full width up to max-width */
+  margin: 0 auto;       /* center horizontally */
+  padding: 0;           /* no padding */
+  min-height: 100vh;    /* take at least full viewport height */
 }
 
 
