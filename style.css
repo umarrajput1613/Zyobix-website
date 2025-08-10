@@ -14,7 +14,7 @@ body {
 }
 .body-wrapper {
   max-width: 1200px;  /* Maximum width set */
-  margin: 0 auto;     /* Center align horizontally */
+  margin: 0 0;     /* Center align horizontally */
   padding: 10px;      /* Gap between content and edges */
   width: 100%;
 }
