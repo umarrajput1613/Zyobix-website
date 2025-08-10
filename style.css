@@ -494,12 +494,22 @@ font-weight: 700;
 
 /* Tablet View: From 426px to 768px */
 @media screen and (min-width: 426px) and (max-width: 768px) {
-    body {
+ body {
   font-family: sans-serif;
   background: rgba(46, 46, 46, 1);
   overflow-x: hidden;
-  }
-  
+  /*width: 100vw;    full viewport width */
+  /*height: 100vh;   full viewport height */
+}
+
+/* Wrapper */
+.body-wrapper {
+      /* max width */
+  width: 100%;          /* full width up to max-width */
+  margin: 0 auto;       /* center horizontally */
+  padding: 0;           /* no padding */
+  min-height: 100vh;    /* take at least full viewport height */
+}
   .heading-primary {
     font-size: 60px;
   }
@@ -533,11 +543,22 @@ font-weight: 700;
 /* Desktop View: 769px and up */
 @media screen and (min-width: 768px) and (max-width: 1425px) {
   /* Increase font sizes */
-  body {
+ body {
   font-family: sans-serif;
   background: rgba(46, 46, 46, 1);
   overflow-x: hidden;
-  }
+  /*width: 100vw;    full viewport width */
+  /*height: 100vh;   full viewport height */
+}
+
+/* Wrapper */
+.body-wrapper {
+      /* max width */
+  width: 100%;          /* full width up to max-width */
+  margin: 0 auto;       /* center horizontally */
+  padding: 0;           /* no padding */
+  min-height: 100vh;    /* take at least full viewport height */
+}
   
   .heading-primary {
     font-size: 110px;
@@ -589,11 +610,22 @@ font-weight: 700;
 }
 @media screen and (min-width: 1426px) {
   /* Large Desktop View: 1441px and up */
-   body {
+  body {
   font-family: sans-serif;
   background: rgba(46, 46, 46, 1);
   overflow-x: hidden;
-  }
+  /*width: 100vw;    full viewport width */
+  /*height: 100vh;   full viewport height */
+}
+
+/* Wrapper */
+.body-wrapper {
+      /* max width */
+  width: 100%;          /* full width up to max-width */
+  margin: 0 auto;       /* center horizontally */
+  padding: 0;           /* no padding */
+  min-height: 100vh;    /* take at least full viewport height */
+}
   .heading-primary {
     font-size: 140px;
   }
