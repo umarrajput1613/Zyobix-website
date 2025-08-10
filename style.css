@@ -13,8 +13,8 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding-left: 20px;
-  padding-right: 20px;
+  padding-left: 1px;
+  padding-right: 1px;
   overflow-x: hidden;
 
 }
@@ -142,7 +142,7 @@ header.scrolled {
   align-items: center;
   justify-content: center;
   text-align: center;
-  padding: 0 20px;
+  padding: 0 0px;
 }
 
 /* Background Video Styling */
