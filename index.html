@@ -10,11 +10,15 @@
 <style>
 @keyframes slide {
   0%   { transform: translateX(0); }
+  50%  { transform: translateX(-50%); }
+  50.0001% { transform: translateX(0); } /* instant reset, but in same flow */
   100% { transform: translateX(-50%); }
 }
+
 .animate-slide {
   animation: slide 20s linear infinite;
 }
+
 </style>
   <link rel="shortcut icon" href="fav-icon.jpg" type="image/x-icon">
   
