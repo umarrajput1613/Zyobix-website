@@ -11,8 +11,8 @@ body {
   font-family: sans-serif;
   background: rgba(46, 46, 46, 1);
   overflow-x: hidden;
-  width: 100vw;   /* full viewport width */
-  height: 100vh;  /* full viewport height */
+  /*width: 100vw;    full viewport width */
+  /*height: 100vh;   full viewport height */
 }
 
 /* Wrapper */
