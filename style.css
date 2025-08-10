@@ -16,7 +16,7 @@ body {
   padding-left: 1px;
   padding-right: 1px;
   overflow-x: hidden;
-
+  margin: 0px 0px;
 }
 
 
@@ -142,7 +142,7 @@ header.scrolled {
   align-items: center;
   justify-content: center;
   text-align: center;
-  padding: 0 0px;
+  padding: 0 20px;
 }
 
 /* Background Video Styling */
