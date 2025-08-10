@@ -174,7 +174,7 @@ header.scrolled {
 
 /* Headings */
 .heading-primary {
-  font-size: 42px;
+  font-size: 48px;
   font-weight: bold;
   background: linear-gradient(to right, orange, rgb(255, 44, 79));
   -webkit-background-clip: text;
@@ -183,7 +183,7 @@ header.scrolled {
 }
 
 .heading-secondary {
-  font-size: 28px;
+  font-size: 38px;
   color: #FFFFFF;
   text-shadow: 0 0 10px #FFA500;
   margin-bottom: 10px;
