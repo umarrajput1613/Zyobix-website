@@ -11,6 +11,7 @@ body {
   background: rgba(46, 46, 46, 1);
   overflow-x: hidden; /* sirf horizontal scroll roke */
   min-height: 100vh; /* body kam se kam viewport jitni ho */
+  min-width: 100vw;
 }
 
 /* Wrapper */
