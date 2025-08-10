@@ -21,6 +21,11 @@ body {
   background: rgba(46, 46, 46, 1);
   overflow-x: hidden;
 }
+.body-wrapper {
+  max-width: 1200px;  /* Maximum width set */
+  margin: 0 auto;     /* Center align horizontally */
+  padding: 20px;      /* Gap between content and edges */
+}
 .bg-card-grey {
       background-color: rgb(46 46 46 / var(--tw-bg-opacity, 1));
 }
