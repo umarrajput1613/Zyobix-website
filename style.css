@@ -180,7 +180,7 @@ header.scrolled {
   -webkit-background-clip: text;
   color: transparent;
   margin-bottom: 10px;
-  line-height: 1px;
+  line-height: 2px;
 }
 
 .heading-secondary {
