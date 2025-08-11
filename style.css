@@ -185,7 +185,7 @@ header.scrolled {
   font-size: 38px;
   color: #FFFFFF;
   text-shadow: 0 0 10px #FFA500;
-  margin-bottom: 10px;
+  /*margin-bottom: 10px;*/
 }
 .neon-glow-orange {
   color: #FFFFFF; /* Bright orange */
