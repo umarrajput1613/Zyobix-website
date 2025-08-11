@@ -434,11 +434,7 @@ transition-duration: 150ms; /* default */
   font-family: system-ui, sans-serif;
 }
 
-.trans-best a {
-   opacity: 0;
-  transform: translateY(20px);
-  animation: fadeUp 0.8s ease-out forwards;
-}
+
 .card-section-comment {
   display: flex;
   gap: 2px; /* cards ke beech gap */
@@ -475,6 +471,7 @@ color: #FFFFFF;
 font-size: 48px;
 font-weight: 700;
 line-height: 48px;
+    margin: 0px;
   }
   @keyframes marqueeAnim {
     0% {
