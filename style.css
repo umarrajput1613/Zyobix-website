@@ -182,7 +182,10 @@ header.scrolled {
 }
 
 .heading-secondary {
-  
+  color: #FFFFFF;
+text-shadow: 0 0 10px #FFA500;
+margin-bottom: 10px;
+
  
 }
 .neon-glow-orange {
