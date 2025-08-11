@@ -177,9 +177,10 @@ header.scrolled {
   font-size: 48px;
   font-weight: bold;
   background: linear-gradient(to right, orange, rgb(255, 44, 79));
-  it-background-clip: text;
+  -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   margin-bottom: 10px;
+  line-height: 1px;
 }
 
 .heading-secondary {
