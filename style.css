@@ -474,7 +474,7 @@ color: #FFFFFF;
   .text-5sl {
 font-size: 48px;
 font-weight: 700;
-
+line-height: 48px;
   }
   @keyframes marqueeAnim {
     0% {
