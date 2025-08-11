@@ -176,9 +176,7 @@ header.scrolled {
 .heading-primary {
   font-size: 48px;
   font-weight: bold;
- background: linear-gradient(to right, orange, rgb(255, 44, 79));
-  -webkit-background-clip: text;
-  color: transparent;
+
   margin-bottom: 10px;
   
 }
