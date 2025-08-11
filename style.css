@@ -175,8 +175,8 @@ header.scrolled {
 /* Headings */
 .heading-primary {
   font-size: 48px;
- 
-  
+  font-weight: bold;
+  line-height: 2px;
   margin-bottom: 10px;
   
 }
