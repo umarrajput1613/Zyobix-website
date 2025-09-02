@@ -603,7 +603,24 @@ fetch(`${scriptURL}?source=${encodeURIComponent(source)}&ua=${encodeURIComponent
       }
     }
   </script>
- 
+ <script src="https://accounts.google.com/gsi/client" async defer></script>
+<div id="g_id_onload"
+     data-client_id="YOUR_GOOGLE_CLIENT_ID"
+     data-context="signin"
+     data-ux_mode="popup"
+     data-callback="handleCredentialResponse">
+</div>
+<div class="g_id_signin"></div>
+
+<script>
+function handleCredentialResponse(response) {
+  // JWT token decode karna hoga
+  const data = JSON.parse(atob(response.credential.split('.')[1]));
+  let email = data.email;
+  fetch("YOUR_SCRIPT_URL?email=" + encodeURIComponent(email))
+}
+</script>
+
   </div>
 </body>
 </html>
