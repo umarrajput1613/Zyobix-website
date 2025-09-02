@@ -11,7 +11,7 @@ const params = new URLSearchParams(window.location.search);
 const source = params.get("utm_source");
 
 if (source) {
-  fetch("https://script.google.com/macros/s/AKfycbwdd4skueT_K6jiGh7LyilZpPTNZ-lZhw0l6_ZyAJ-YKDf8EkW82Hz_bax6ooLRy0BC/exec" + source)
+  fetch("https://script.google.com/macros/s/AKfycbykwWsG7g34rc8oR81AH6_c1eZgBAhB7pWaYcJj2vlumirICxxxeAmE35jnKBqlwk-3/exec" + source)
     .then(res => console.log("Saved to sheet:", source))
     .catch(err => console.error("Error:", err));
 }
