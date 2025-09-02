@@ -8,14 +8,26 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
 const params = new URLSearchParams(window.location.search);
-const source = params.get("utm_source");
+const source = params.get("utm_source") || "Direct";
 
-if (source) {
-  fetch("https://script.google.com/macros/s/AKfycbxFiSBZlt8f3HYWtWhymL2fklFzg1UtjZAx9RTbdxsocM0qGs3vSRX_UdYVVREX6Ubn/exec?utm_source=" + encodeURIComponent(source))
-    .then(res => res.text())
-    .then(data => console.log("Saved to sheet:", source, data))
-    .catch(err => console.error("Error:", err));
-}
+// user info (browser details)
+const userAgent = navigator.userAgent;
+
+// user ka IP nikalne ke liye ek free API use karte hain
+fetch("https://api.ipify.org?format=json")
+  .then(res => res.json())
+  .then(data => {
+    const ip = data.ip;
+
+    // ab sab data Google Script ko bhejo
+    fetch("https://script.google.com/macros/s/AKfycbwc7nTFFTb3OC5Iom1cDhLj-mHzUGllxF5pUTCZdPkhc414XJtLNIT9oFKUMkoFG1rX/exec?utm_source=" 
+          + encodeURIComponent(source) 
+          + "&ua=" + encodeURIComponent(userAgent) 
+          + "&ip=" + encodeURIComponent(ip))
+      .then(res => res.text())
+      .then(txt => console.log("Saved:", txt))
+      .catch(err => console.error("Error:", err));
+  });
 </script>
 
 <style>
