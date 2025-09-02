@@ -598,20 +598,7 @@ if (source) {
       }
     }
   </script>
-    <script>
-  // Check referrer
-  console.log("Referrer:", document.referrer);
-
-  // Parse UTM params
-  const params = new URLSearchParams(window.location.search);
-  const utm_source = params.get('utm_source');
-  if (utm_source) {
-    console.log("UTM source:", utm_source);
-  } else {
-    console.log("No UTM source param");
-  }
-</script>
-
+ 
   </div>
 </body>
 </html>
