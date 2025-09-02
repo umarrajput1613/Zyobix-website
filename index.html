@@ -9,26 +9,17 @@
   <script>
 const params = new URLSearchParams(window.location.search);
 const source = params.get("utm_source") || "Direct";
+const ua = navigator.userAgent;
+const ip = ""; // Agar IP chahiye toh backend side pe hi nikalna padega
 
-// user info (browser details)
-const userAgent = navigator.userAgent;
+const scriptURL = "https://script.google.com/macros/s/AKfycbynVN8LKwT5-nCHgH6Hzz20XBhwszdk9qR-K8LMHOizxdQ0xPDQ5fhYeBpSWpvP0zI/exec";
 
-// user ka IP nikalne ke liye ek free API use karte hain
-fetch("https://api.ipify.org?format=json")
+fetch(`${scriptURL}?source=${encodeURIComponent(source)}&ua=${encodeURIComponent(ua)}&ip=${encodeURIComponent(ip)}`)
   .then(res => res.json())
-  .then(data => {
-    const ip = data.ip;
-
-    // ab sab data Google Script ko bhejo
-    fetch("https://script.google.com/macros/s/AKfycbwc7nTFFTb3OC5Iom1cDhLj-mHzUGllxF5pUTCZdPkhc414XJtLNIT9oFKUMkoFG1rX/exec?utm_source=" 
-          + encodeURIComponent(source) 
-          + "&ua=" + encodeURIComponent(userAgent) 
-          + "&ip=" + encodeURIComponent(ip))
-      .then(res => res.text())
-      .then(txt => console.log("Saved:", txt))
-      .catch(err => console.error("Error:", err));
-  });
+  .then(data => console.log("Saved:", data))
+  .catch(err => console.error("Error:", err));
 </script>
+
 
 <style>
 @keyframes slide {
