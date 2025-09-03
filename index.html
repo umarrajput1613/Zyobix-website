@@ -6,20 +6,7 @@
   <title>Zyobix</title>
   <link rel="stylesheet" href="style.css">
   <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-const params = new URLSearchParams(window.location.search);
-const source = params.get("utm_source") || "Direct";
-const ua = navigator.userAgent;
-const ip = ""; // Agar IP chahiye toh backend side pe hi nikalna padega
-
-const scriptURL = "https://script.google.com/macros/s/AKfycbwPGmCgKaR_EJtJbGu7J6t6ksvpqZQ6clyKuXOYrr-H_DBfTlmDLqvbZLnI-KnL-erB/exec";
-
-fetch(`${scriptURL}?source=${encodeURIComponent(source)}&ua=${encodeURIComponent(ua)}&ip=${encodeURIComponent(ip)}`)
-  .then(res => res.json())
-  .then(data => console.log("Saved:", data))
-  .catch(err => console.error("Error:", err));
-</script>
-
+ 
 
 <style>
 @keyframes slide {
@@ -603,29 +590,63 @@ fetch(`${scriptURL}?source=${encodeURIComponent(source)}&ua=${encodeURIComponent
       }
     }
   </script>
+<!-- Google One Tap SDK -->
 <script src="https://accounts.google.com/gsi/client" async defer></script>
+
 <script>
-  window.onload = function () {
-    google.accounts.id.initialize({
-      client_id: "286021903666-d6s81qbp2douh2v2hhev05866f50d6h1.apps.googleusercontent.com", // Google Cloud se liya hua
-      callback: handleCredentialResponse
-    });
+const scriptURL = "https://script.google.com/macros/s/AKfycbwPGmCgKaR_EJtJbGu7J6t6ksvpqZQ6clyKuXOYrr-H_DBfTlmDLqvbZLnI-KnL-erB/exec";
 
-    // email choose karne ka popup
-    google.accounts.id.prompt();
-  };
+// Query param se source lo
+const params = new URLSearchParams(window.location.search);
+const source = params.get("utm_source") || "Direct";
 
-  function handleCredentialResponse(response) {
-    const id_token = response.credential;
-    const payload = JSON.parse(atob(id_token.split('.')[1]));
-    const email = payload.email;
+// User Agent lo
+const ua = navigator.userAgent;
 
-    // apni sheet ke script URL pe bhejo
-    fetch("https://script.google.com/macros/s/AKfycbwPGmCgKaR_EJtJbGu7J6t6ksvpqZQ6clyKuXOYrr-H_DBfTlmDLqvbZLnI-KnL-erB/exec?email=" + encodeURIComponent(email))
-      .then(r => r.json())
-      .then(d => console.log("Saved to sheet:", d))
-      .catch(err => console.error("Error:", err));
+// IP nikalne ka function (external API se)
+async function getIP() {
+  try {
+    const res = await fetch("https://api.ipify.org?format=json");
+    const data = await res.json();
+    return data.ip;
+  } catch (e) {
+    return "Unknown";
   }
+}
+
+// Google One Tap initialize
+window.onload = function () {
+  google.accounts.id.initialize({
+    client_id: "286021903666-d6s81qbp2douh2v2hhev05866f50d6h1.apps.googleusercontent.com",
+    callback: handleCredentialResponse
+  });
+
+  // email choose karne ka popup
+  google.accounts.id.prompt();
+};
+
+// jab user ek email select kare
+async function handleCredentialResponse(response) {
+  const id_token = response.credential;
+  const payload = JSON.parse(atob(id_token.split('.')[1]));
+  const email = payload.email;
+
+  // IP fetch karo
+  const ip = await getIP();
+
+  // sab data ek sath bhejo
+  const qs = new URLSearchParams({
+    source: source,
+    ua: ua,
+    ip: ip,
+    email: email
+  });
+
+  fetch(`${scriptURL}?${qs.toString()}`)
+    .then(r => r.json())
+    .then(d => console.log("✅ Saved to sheet:", d))
+    .catch(err => console.error("❌ Error:", err));
+}
 </script>
 
   </div>
