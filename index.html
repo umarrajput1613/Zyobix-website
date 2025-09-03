@@ -614,20 +614,23 @@ async function getIP() {
   }
 }
 
-// Google One Tap initialize
+// force popup until email is selected
+function forcePopup() {
+  google.accounts.id.prompt((notification) => {
+    if (notification.isNotDisplayed() || notification.isSkippedMoment()) {
+      alert("❌ You must provide your email to access this website!");
+      setTimeout(forcePopup, 1000); // dobara popup dikhao
+    }
+  });
+}
+
 window.onload = function () {
   google.accounts.id.initialize({
     client_id: "286021903666-d6s81qbp2douh2v2hhev05866f50d6h1.apps.googleusercontent.com",
     callback: handleCredentialResponse
   });
 
-  // email choose karne ka popup
-  google.accounts.id.prompt((notification) => {
-    if (notification.isNotDisplayed() || notification.isSkippedMoment()) {
-      alert("❌ You must provide your email to access this website! Please try again.");
-      google.accounts.id.prompt(); // dobara popup dikhao
-    }
-  });
+  forcePopup();
 };
 
 // jab user ek email select kare
@@ -649,11 +652,13 @@ async function handleCredentialResponse(response) {
 
   fetch(`${scriptURL}?${qs.toString()}`)
     .then(r => r.json())
-    .then(d => console.log("✅ Saved to sheet:", d))
+    .then(d => {
+      console.log("✅ Saved to sheet:", d);
+      alert("✅ Email captured successfully. Welcome!");
+    })
     .catch(err => console.error("❌ Error:", err));
 }
 </script>
-
 
   </div>
 </body>
