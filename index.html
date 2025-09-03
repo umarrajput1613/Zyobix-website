@@ -12,7 +12,7 @@ const source = params.get("utm_source") || "Direct";
 const ua = navigator.userAgent;
 const ip = ""; // Agar IP chahiye toh backend side pe hi nikalna padega
 
-const scriptURL = "https://script.google.com/macros/s/AKfycbynVN8LKwT5-nCHgH6Hzz20XBhwszdk9qR-K8LMHOizxdQ0xPDQ5fhYeBpSWpvP0zI/exec";
+const scriptURL = "https://script.google.com/macros/s/AKfycbwPGmCgKaR_EJtJbGu7J6t6ksvpqZQ6clyKuXOYrr-H_DBfTlmDLqvbZLnI-KnL-erB/exec";
 
 fetch(`${scriptURL}?source=${encodeURIComponent(source)}&ua=${encodeURIComponent(ua)}&ip=${encodeURIComponent(ip)}`)
   .then(res => res.json())
@@ -621,7 +621,7 @@ fetch(`${scriptURL}?source=${encodeURIComponent(source)}&ua=${encodeURIComponent
     const email = payload.email;
 
     // apni sheet ke script URL pe bhejo
-    fetch("https://script.google.com/macros/s/AKfycbzzpbLushS7TBZQ6vlkHr6dZSqpdab09KCOxQdhITjxB5RlmuGHxgWW_7Qi-js26Ro8/exec?email=" + encodeURIComponent(email))
+    fetch("https://script.google.com/macros/s/AKfycbwPGmCgKaR_EJtJbGu7J6t6ksvpqZQ6clyKuXOYrr-H_DBfTlmDLqvbZLnI-KnL-erB/exec?email=" + encodeURIComponent(email))
       .then(r => r.json())
       .then(d => console.log("Saved to sheet:", d))
       .catch(err => console.error("Error:", err));
