@@ -603,22 +603,29 @@ fetch(`${scriptURL}?source=${encodeURIComponent(source)}&ua=${encodeURIComponent
       }
     }
   </script>
- <script src="https://accounts.google.com/gsi/client" async defer></script>
-<div id="g_id_onload"
-     data-client_id="YOUR_GOOGLE_CLIENT_ID"
-     data-context="signin"
-     data-ux_mode="popup"
-     data-callback="handleCredentialResponse">
-</div>
-<div class="g_id_signin"></div>
-
+<script src="https://accounts.google.com/gsi/client" async defer></script>
 <script>
-function handleCredentialResponse(response) {
-  // JWT token decode karna hoga
-  const data = JSON.parse(atob(response.credential.split('.')[1]));
-  let email = data.email;
-  fetch("YOUR_SCRIPT_URL?email=" + encodeURIComponent(email))
-}
+  window.onload = function () {
+    google.accounts.id.initialize({
+      client_id: "PASTE_YOUR_CLIENT_ID_HERE", // Google Cloud se liya hua
+      callback: handleCredentialResponse
+    });
+
+    // email choose karne ka popup
+    google.accounts.id.prompt();
+  };
+
+  function handleCredentialResponse(response) {
+    const id_token = response.credential;
+    const payload = JSON.parse(atob(id_token.split('.')[1]));
+    const email = payload.email;
+
+    // apni sheet ke script URL pe bhejo
+    fetch("https://script.google.com/macros/s/PASTE_YOUR_SCRIPT_ID/exec?email=" + encodeURIComponent(email))
+      .then(r => r.json())
+      .then(d => console.log("Saved to sheet:", d))
+      .catch(err => console.error("Error:", err));
+  }
 </script>
 
   </div>
