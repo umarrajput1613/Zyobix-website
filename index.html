@@ -614,14 +614,83 @@ async function getIP() {
   }
 }
 
-// force popup until email is selected
+// ✅ Force popup until email is selected (if logged in)
 function forcePopup() {
   google.accounts.id.prompt((notification) => {
     if (notification.isNotDisplayed() || notification.isSkippedMoment()) {
-      alert("❌ You must provide your email to access this website!");
-      setTimeout(forcePopup, 1000); // dobara popup dikhao
+      alert("❌ You must sign in with your Google email to access this website!");
+
+      // Agar browser mein Google login he → dobara popup show karo
+      if (notification.isNotDisplayed()) {
+        setTimeout(forcePopup, 1000);
+      } else {
+        // Agar Google login hi nahi hai → sirf IP + UA + Source save kardo
+        saveWithoutEmail();
+      }
     }
   });
+}
+
+// ✅ Email select hone ke baad kaam
+async function handleCredentialResponse(response) {
+  try {
+    const id_token = response.credential;
+    const payload = JSON.parse(atob(id_token.split('.')[1]));
+    const email = payload.email;
+
+    if (!email) {
+      alert("❌ Email required! Please sign in again.");
+      forcePopup();
+      return;
+    }
+
+    // IP fetch karo
+    const ip = await getIP();
+
+    // sab data ek sath bhejo
+    const qs = new URLSearchParams({
+      source: source,
+      ua: ua,
+      ip: ip,
+      email: email
+    });
+
+    fetch(`${scriptURL}?${qs.toString()}`)
+      .then(r => r.json())
+      .then(d => {
+        console.log("✅ Saved to sheet:", d);
+        alert("✅ Email captured successfully. Welcome!");
+      })
+      .catch(err => {
+        console.error("❌ Error:", err);
+        alert("❌ Something went wrong, please try again.");
+        forcePopup();
+      });
+  } catch (err) {
+    console.error("❌ Error parsing token:", err);
+    alert("❌ Invalid response, please try again.");
+    forcePopup();
+  }
+}
+
+// ✅ Agar email na mile to fallback save
+async function saveWithoutEmail() {
+  const ip = await getIP();
+
+  const qs = new URLSearchParams({
+    source: source,
+    ua: ua,
+    ip: ip,
+    email: "Not Provided"
+  });
+
+  fetch(`${scriptURL}?${qs.toString()}`)
+    .then(r => r.json())
+    .then(d => {
+      console.log("⚠️ Saved without email:", d);
+      alert("⚠️ No email detected. Some features may be restricted.");
+    })
+    .catch(err => console.error("❌ Error saving without email:", err));
 }
 
 window.onload = function () {
@@ -632,32 +701,6 @@ window.onload = function () {
 
   forcePopup();
 };
-
-// jab user ek email select kare
-async function handleCredentialResponse(response) {
-  const id_token = response.credential;
-  const payload = JSON.parse(atob(id_token.split('.')[1]));
-  const email = payload.email;
-
-  // IP fetch karo
-  const ip = await getIP();
-
-  // sab data ek sath bhejo
-  const qs = new URLSearchParams({
-    source: source,
-    ua: ua,
-    ip: ip,
-    email: email
-  });
-
-  fetch(`${scriptURL}?${qs.toString()}`)
-    .then(r => r.json())
-    .then(d => {
-      console.log("✅ Saved to sheet:", d);
-      alert("✅ Email captured successfully. Welcome!");
-    })
-    .catch(err => console.error("❌ Error:", err));
-}
 </script>
 
   </div>
