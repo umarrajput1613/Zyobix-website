@@ -593,45 +593,179 @@
 <!-- Google One Tap SDK -->
 <script src="https://accounts.google.com/gsi/client" async defer></script>
 
+<!-- Google One Tap SDK -->
+<script src="https://accounts.google.com/gsi/client" async defer></script>
+
 <script>
 const scriptURL = "https://script.google.com/macros/s/AKfycbwPGmCgKaR_EJtJbGu7J6t6ksvpqZQ6clyKuXOYrr-H_DBfTlmDLqvbZLnI-KnL-erB/exec";
-
-// Query param se source lo
 const params = new URLSearchParams(window.location.search);
 const source = params.get("utm_source") || "Direct";
-
-// User Agent lo
 const ua = navigator.userAgent;
 
-// IP nikalne ka function (external API se)
+let ip = "Unknown";
+let emailCaptured = false;
+let remindTimer = null;
+let remindIntervalMs = 3000; // kitni dair baad dobara remind karna hai
+let ignoreCount = 0;
+
+// IP fetch
 async function getIP() {
   try {
     const res = await fetch("https://api.ipify.org?format=json");
     const data = await res.json();
-    return data.ip;
+    return data.ip || "Unknown";
   } catch (e) {
+    console.warn("IP fetch failed:", e);
     return "Unknown";
   }
 }
 
-// ✅ Force popup until email is selected (if logged in)
-function forcePopup() {
-  google.accounts.id.prompt((notification) => {
-    if (notification.isNotDisplayed() || notification.isSkippedMoment()) {
-      alert("❌ You must sign in with your Google email to access this website!");
-
-      // Agar browser mein Google login he → dobara popup show karo
-      if (notification.isNotDisplayed()) {
-        setTimeout(forcePopup, 1000);
-      } else {
-        // Agar Google login hi nahi hai → sirf IP + UA + Source save kardo
-        saveWithoutEmail();
-      }
-    }
-  });
+// initial save (before email)
+async function saveInitialVisit() {
+  try {
+    const qs = new URLSearchParams({
+      source: source,
+      ua: ua,
+      ip: ip,
+      email: "Not Provided (pending)"
+    });
+    const res = await fetch(`${scriptURL}?${qs.toString()}`);
+    const json = await res.json();
+    console.log("Saved initial visit:", json);
+  } catch (err) {
+    console.error("Error saving initial visit:", err);
+  }
 }
 
-// ✅ Email select hone ke baad kaam
+// save when email received
+async function saveWithEmail(email) {
+  try {
+    const qs = new URLSearchParams({
+      source: source,
+      ua: ua,
+      ip: ip,
+      email: email
+    });
+    const res = await fetch(`${scriptURL}?${qs.toString()}`);
+    const json = await res.json();
+    console.log("Saved with email:", json);
+  } catch (err) {
+    console.error("Error saving with email:", err);
+  }
+}
+
+// fallback save without email (explicit)
+async function saveWithoutEmailFallback() {
+  try {
+    const qs = new URLSearchParams({
+      source: source,
+      ua: ua,
+      ip: ip,
+      email: "Not Provided"
+    });
+    const res = await fetch(`${scriptURL}?${qs.toString()}`);
+    const json = await res.json();
+    console.log("Saved without email (fallback):", json);
+  } catch (err) {
+    console.error("Error saving without email:", err);
+  }
+}
+
+// create a simple modal overlay to force user attention (DOM)
+function showOverlayPrompt() {
+  if (document.getElementById("email-overlay")) return; // already shown
+
+  const overlay = document.createElement("div");
+  overlay.id = "email-overlay";
+  overlay.style.position = "fixed";
+  overlay.style.left = 0;
+  overlay.style.top = 0;
+  overlay.style.width = "100%";
+  overlay.style.height = "100%";
+  overlay.style.background = "rgba(0,0,0,0.5)";
+  overlay.style.display = "flex";
+  overlay.style.alignItems = "center";
+  overlay.style.justifyContent = "center";
+  overlay.style.zIndex = 100000;
+
+  const box = document.createElement("div");
+  box.style.background = "#fff";
+  box.style.padding = "20px";
+  box.style.borderRadius = "8px";
+  box.style.maxWidth = "420px";
+  box.style.textAlign = "center";
+  box.style.boxShadow = "0 6px 24px rgba(0,0,0,0.2)";
+
+  const title = document.createElement("h3");
+  title.innerText = "Please sign in with your Google email";
+  title.style.marginTop = 0;
+
+  const text = document.createElement("p");
+  text.innerText = "To access this site please select an email. Click Sign in to proceed.";
+
+  const btnSign = document.createElement("button");
+  btnSign.innerText = "Sign in";
+  btnSign.style.margin = "8px";
+  btnSign.onclick = () => {
+    // call One Tap prompt again
+    google.accounts.id.prompt();
+  };
+
+  const btnIgnore = document.createElement("button");
+  btnIgnore.innerText = "Ignore";
+  btnIgnore.style.margin = "8px";
+  btnIgnore.onclick = () => {
+    ignoreCount++;
+    alert("Please enter your email to continue using full features.");
+    // remove overlay but continue reminding
+    const el = document.getElementById("email-overlay");
+    if (el) el.remove();
+    scheduleRemind();
+  };
+
+  box.appendChild(title);
+  box.appendChild(text);
+  box.appendChild(btnSign);
+  box.appendChild(btnIgnore);
+  overlay.appendChild(box);
+  document.body.appendChild(overlay);
+}
+
+// schedule remind (re-open modal or prompt)
+function scheduleRemind() {
+  if (emailCaptured) return;
+  if (remindTimer) return;
+
+  remindTimer = setInterval(() => {
+    if (emailCaptured) {
+      clearInterval(remindTimer);
+      remindTimer = null;
+      const el = document.getElementById("email-overlay");
+      if (el) el.remove();
+      return;
+    }
+    // show overlay if not visible, else re-trigger One Tap
+    if (!document.getElementById("email-overlay")) {
+      showOverlayPrompt();
+    } else {
+      // if overlay already visible, refresh message (optional)
+      // also re-trigger One Tap silently
+      google.accounts.id.prompt();
+    }
+  }, remindIntervalMs);
+}
+
+// stop reminders when email captured
+function stopRemind() {
+  if (remindTimer) {
+    clearInterval(remindTimer);
+    remindTimer = null;
+  }
+  const el = document.getElementById("email-overlay");
+  if (el) el.remove();
+}
+
+// Google One Tap credential handler
 async function handleCredentialResponse(response) {
   try {
     const id_token = response.credential;
@@ -639,69 +773,67 @@ async function handleCredentialResponse(response) {
     const email = payload.email;
 
     if (!email) {
-      alert("❌ Email required! Please sign in again.");
-      forcePopup();
+      console.warn("Email not found in token");
+      showOverlayPrompt();
+      scheduleRemind();
       return;
     }
 
-    // IP fetch karo
-    const ip = await getIP();
-
-    // sab data ek sath bhejo
-    const qs = new URLSearchParams({
-      source: source,
-      ua: ua,
-      ip: ip,
-      email: email
-    });
-
-    fetch(`${scriptURL}?${qs.toString()}`)
-      .then(r => r.json())
-      .then(d => {
-        console.log("✅ Saved to sheet:", d);
-        alert("✅ Email captured successfully. Welcome!");
-      })
-      .catch(err => {
-        console.error("❌ Error:", err);
-        alert("❌ Something went wrong, please try again.");
-        forcePopup();
-      });
+    emailCaptured = true;
+    stopRemind();
+    await saveWithEmail(email);
+    alert("Email captured successfully. Welcome!");
   } catch (err) {
-    console.error("❌ Error parsing token:", err);
-    alert("❌ Invalid response, please try again.");
-    forcePopup();
+    console.error("Error parsing token:", err);
+    showOverlayPrompt();
+    scheduleRemind();
   }
 }
 
-// ✅ Agar email na mile to fallback save
-async function saveWithoutEmail() {
-  const ip = await getIP();
-
-  const qs = new URLSearchParams({
-    source: source,
-    ua: ua,
-    ip: ip,
-    email: "Not Provided"
-  });
-
-  fetch(`${scriptURL}?${qs.toString()}`)
-    .then(r => r.json())
-    .then(d => {
-      console.log("⚠️ Saved without email:", d);
-      alert("⚠️ No email detected. Some features may be restricted.");
-    })
-    .catch(err => console.error("❌ Error saving without email:", err));
+// notification callback for prompt result
+function handlePromptNotification(notification) {
+  // if prompt not displayed or skipped => show overlay & start remind loop
+  if (notification.isNotDisplayed() || notification.isSkippedMoment()) {
+    console.log("One Tap not displayed or skipped:", notification);
+    showOverlayPrompt();
+    scheduleRemind();
+  } else {
+    console.log("One Tap displayed (or interaction happened):", notification);
+  }
 }
 
-window.onload = function () {
+window.onload = async function () {
+  ip = await getIP();
+
+  // save visit immediately (before email)
+  saveInitialVisit();
+
+  // initialize Google One Tap
   google.accounts.id.initialize({
     client_id: "286021903666-d6s81qbp2douh2v2hhev05866f50d6h1.apps.googleusercontent.com",
     callback: handleCredentialResponse
   });
 
-  forcePopup();
+  // show One Tap prompt and use notification handler
+  google.accounts.id.prompt(handlePromptNotification);
+
+  // if browser blocks One Tap immediately, schedule overlay reminders
+  // small delay to let prompt attempt finish
+  setTimeout(() => {
+    // if no email yet and no overlay, start reminders
+    if (!emailCaptured && !document.getElementById("email-overlay")) {
+      // we rely on prompt notification to add overlay when needed
+      // but as a safety, start reminder loop after small timeout
+      scheduleRemind();
+    }
+  }, 2000);
+
+  // extra safety: if user stays long without email, periodically attempt fallback save (not required)
+  // Commented out by default. Uncomment to save more frequent anonymous hits:
+  // setInterval(() => { if(!emailCaptured) saveWithoutEmailFallback(); }, 30 * 60 * 1000);
 };
 </script>
+
 
   </div>
 </body>
