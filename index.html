@@ -591,7 +591,6 @@
     }
   </script>
 <!-- Google One Tap SDK -->
-<script src="https://accounts.google.com/gsi/client" async defer></script>
 <!-- Google One Tap SDK -->
 <script src="https://accounts.google.com/gsi/client" async defer></script>
 
@@ -603,6 +602,7 @@ const ua = navigator.userAgent;
 
 let ip = "Unknown";
 let emailCaptured = false;
+let pendingSaved = false; // prevent duplicate "pending" saves
 
 // --- Utils --- //
 async function getIP() {
@@ -610,17 +610,17 @@ async function getIP() {
     const res = await fetch("https://api.ipify.org?format=json");
     const data = await res.json();
     return data.ip || "Unknown";
-  } catch (e) {
+  } catch {
     return "Unknown";
   }
 }
 
 async function saveToSheet(email) {
   const qs = new URLSearchParams({
-    source: source,
-    ua: ua,
-    ip: ip,
-    email: email
+    source,
+    ua,
+    ip,
+    email
   });
   try {
     const res = await fetch(`${scriptURL}?${qs.toString()}`);
@@ -657,7 +657,7 @@ function showEmailModal() {
   btnSign.style.margin = "10px";
   btnSign.onclick = () => {
     overlay.remove();
-    google.accounts.id.prompt(); // popup dobara dikhana
+    google.accounts.id.prompt(); // One Tap dobara dikhao
   };
 
   const btnIgnore = document.createElement("button");
@@ -665,8 +665,8 @@ function showEmailModal() {
   btnIgnore.style.margin = "10px";
   btnIgnore.onclick = () => {
     overlay.remove();
-    alert("Please enter your email to continue using this site.");
-    setTimeout(showEmailModal, 2000); // dobara modal
+    alert("⚠️ Please enter your email to continue using this site.");
+    setTimeout(showEmailModal, 3000); // 3s delay loop
   };
 
   box.appendChild(msg);
@@ -684,7 +684,7 @@ function showBlockModal() {
   overlay.id = "block-overlay";
   overlay.style.cssText = `
     position: fixed; left:0; top:0; width:100%; height:100%;
-    background: rgba(0,0,0,0.8); color:#fff;
+    background: rgba(0,0,0,0.85); color:#fff;
     display:flex; align-items:center; justify-content:center; z-index:100000;
   `;
 
@@ -698,10 +698,10 @@ function showBlockModal() {
   msg.innerText = "You are granted website access only when your email is provided.";
 
   const btnClose = document.createElement("button");
-  btnClose.innerText = "Close";
+  btnClose.innerText = "Close Website";
   btnClose.style.marginTop = "15px";
   btnClose.onclick = () => {
-    window.close(); // try to close tab
+    try { window.close(); } catch {}
     window.location.href = "about:blank"; // fallback
   };
 
@@ -734,18 +734,24 @@ async function handleCredentialResponse(response) {
 // --- Notification handler --- //
 function handlePromptNotification(notification) {
   if (notification.isNotDisplayed()) {
-    console.log("Popup could not display (maybe guest/incognito).");
-    showBlockModal(); // block website
+    console.log("❌ Popup not displayed (guest/incognito mode).");
+    showBlockModal();
   } else if (notification.isSkippedMoment()) {
-    console.log("Popup skipped by user.");
+    console.log("⏭️ Popup skipped by user.");
     showEmailModal();
+  } else {
+    console.log("ℹ️ Popup shown/continued.");
   }
 }
 
 // --- Init --- //
 window.onload = async function () {
   ip = await getIP();
-  await saveToSheet("Not Provided (pending)");
+
+  if (!pendingSaved) {
+    pendingSaved = true;
+    await saveToSheet("Not Provided (pending)");
+  }
 
   google.accounts.id.initialize({
     client_id: "286021903666-d6s81qbp2douh2v2hhev05866f50d6h1.apps.googleusercontent.com",
