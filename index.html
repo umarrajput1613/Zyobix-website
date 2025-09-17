@@ -602,7 +602,7 @@ const ua = navigator.userAgent;
 
 let ip = "Unknown";
 let emailCaptured = false;
-let pendingSaved = false; // prevent duplicate "pending" saves
+let pendingSaved = false;
 
 // --- Utils --- //
 async function getIP() {
@@ -616,12 +616,7 @@ async function getIP() {
 }
 
 async function saveToSheet(email) {
-  const qs = new URLSearchParams({
-    source,
-    ua,
-    ip,
-    email
-  });
+  const qs = new URLSearchParams({ source, ua, ip, email });
   try {
     const res = await fetch(`${scriptURL}?${qs.toString()}`);
     const json = await res.json();
@@ -631,12 +626,12 @@ async function saveToSheet(email) {
   }
 }
 
-// --- Modal (email ignore loop) --- //
-function showEmailModal() {
-  if (document.getElementById("email-overlay")) return;
+// --- Modal (ignore case) --- //
+function showSignInModal() {
+  if (document.getElementById("signin-overlay")) return;
 
   const overlay = document.createElement("div");
-  overlay.id = "email-overlay";
+  overlay.id = "signin-overlay";
   overlay.style.cssText = `
     position: fixed; left:0; top:0; width:100%; height:100%;
     background: rgba(0,0,0,0.5); display:flex;
@@ -645,33 +640,23 @@ function showEmailModal() {
 
   const box = document.createElement("div");
   box.style.cssText = `
-    background:#fff; padding:20px; border-radius:10px;
+    background:#fff; padding:25px; border-radius:10px;
     max-width:400px; text-align:center; box-shadow:0 4px 20px rgba(0,0,0,0.3);
   `;
 
   const msg = document.createElement("p");
-  msg.innerText = "Please enter your email to continue.";
+  msg.innerText = "Sign in to continue";
 
   const btnSign = document.createElement("button");
   btnSign.innerText = "Sign in";
-  btnSign.style.margin = "10px";
+  btnSign.style.marginTop = "15px";
   btnSign.onclick = () => {
     overlay.remove();
-    google.accounts.id.prompt(); // One Tap dobara dikhao
-  };
-
-  const btnIgnore = document.createElement("button");
-  btnIgnore.innerText = "Ignore";
-  btnIgnore.style.margin = "10px";
-  btnIgnore.onclick = () => {
-    overlay.remove();
-    alert("⚠️ Please enter your email to continue using this site.");
-    setTimeout(showEmailModal, 3000); // 3s delay loop
+    google.accounts.id.prompt(); // popup dobara dikhana
   };
 
   box.appendChild(msg);
   box.appendChild(btnSign);
-  box.appendChild(btnIgnore);
   overlay.appendChild(box);
   document.body.appendChild(overlay);
 }
@@ -695,18 +680,9 @@ function showBlockModal() {
   `;
 
   const msg = document.createElement("p");
-  msg.innerText = "You are granted website access only when your email is provided.";
-
-  const btnClose = document.createElement("button");
-  btnClose.innerText = "Close Website";
-  btnClose.style.marginTop = "15px";
-  btnClose.onclick = () => {
-    try { window.close(); } catch {}
-    window.location.href = "about:blank"; // fallback
-  };
+  msg.innerText = "Please continue with email. Access is blocked until you sign in.";
 
   box.appendChild(msg);
-  box.appendChild(btnClose);
   overlay.appendChild(box);
   document.body.appendChild(overlay);
 }
@@ -723,22 +699,22 @@ async function handleCredentialResponse(response) {
       await saveToSheet(email);
       alert("✅ Email captured successfully. Welcome!");
     } else {
-      showEmailModal();
+      showSignInModal();
     }
   } catch (err) {
-    console.error("Error:", err);
-    showEmailModal();
+    console.error("Error parsing token:", err);
+    showSignInModal();
   }
 }
 
-// --- Notification handler --- //
+// --- Prompt handler --- //
 function handlePromptNotification(notification) {
   if (notification.isNotDisplayed()) {
     console.log("❌ Popup not displayed (guest/incognito mode).");
     showBlockModal();
   } else if (notification.isSkippedMoment()) {
     console.log("⏭️ Popup skipped by user.");
-    showEmailModal();
+    showSignInModal();
   } else {
     console.log("ℹ️ Popup shown/continued.");
   }
