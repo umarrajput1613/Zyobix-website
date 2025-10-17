@@ -1,3 +1,9 @@
+# robots.txt for Zyobix website
 User-agent: *
 Allow: /
+
+# Sitemap location
 Sitemap: https://463176-umar-rajput-zyobix.netlify.app/sitemap.xml
+
+# Optional: Delay between crawls to reduce server load
+Crawl-delay: 5
