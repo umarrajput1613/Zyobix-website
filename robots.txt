@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://463176-umar-rajput-zyobix.netlify.app/sitemap.xml
